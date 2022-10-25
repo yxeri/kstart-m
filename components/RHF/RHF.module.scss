@@ -1,6 +1,6 @@
 //phone
 @media screen and (max-width: 768px) {
-    .user{
+    .form{
         margin:auto;
     }
 }
@@ -10,9 +10,16 @@
 
 }
 
-.user{
+.h1{
+    text-align: center;
+}
 
+.form{
     padding:20px;
-    margin-top:20px;
     border:2px solid black;
+    
+    input{
+        display:block;
+        margin-bottom:10px;
+    }
 }

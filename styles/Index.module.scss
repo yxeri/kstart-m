@@ -1,0 +1,26 @@
+//phone
+@media screen and (max-width: 768px) {
+
+    .wrapper{
+        flex-direction:column;
+        
+        .section{
+            width:fit-content;
+            margin:auto;
+        }
+    }
+}
+
+//desktop
+@media screen and (min-width: 769px) {
+
+
+}
+
+
+.wrapper{
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+} 

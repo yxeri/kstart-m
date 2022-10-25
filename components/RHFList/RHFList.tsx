@@ -1,11 +1,11 @@
-import styles from './List.module.scss';
+import styles from './RHFList.module.scss';
 import { IUser } from "../../models/IUser";
 
 interface ListProps{
     users:IUser[];
 }
 
-function List({users}:ListProps){
+function RHFList({users}:ListProps){
 
     return(
         <>
@@ -24,4 +24,4 @@ function List({users}:ListProps){
     );
 }
 
-export default List;
+export default RHFList;
