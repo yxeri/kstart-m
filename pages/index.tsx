@@ -10,28 +10,29 @@ import styles from '../styles/Index.module.scss';
 const Index: NextPage = () => {
 
     const [usersRHF, setUsersRHF] = useState<IUser[]>([]);
+    const [users, setUsers] = useState<IUser[]>([]);
+
 
     function addUserRHF(user:IUser){
         setUsersRHF([...usersRHF, user]);
     }
 
-    const [users, setUsers] = useState<IUser[]>([]);
-
+    
     function addUser(user:IUser){
         setUsers([...users, user]);
     }
 
 
-
     return (
-
         <div className={styles.wrapper}>
             <section className={styles.section}>
+                <h1 className={styles.h1}>React Hook Form</h1>
                 <RHF addUser={addUserRHF}></RHF>
                 <RHFList users={usersRHF}></RHFList>
             </section>
 
             <section className={styles.section}>
+                <h1 className={styles.h1}>Normal Form</h1>
                 <Form addUser={addUser}></Form>
                 <List users={users}></List>
             </section>

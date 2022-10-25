@@ -98,29 +98,25 @@ function Form({addUser}:FormProps){
 
 
     return(
-        <>
-            <h1 className={styles.h1}>Normal Form</h1>
+        <form className={styles.form} onSubmit={handleSubmit}>
+            <label htmlFor="firstName">First name</label>
+            <input type="text" placeholder="First name" name="firstName" required value={form.firstName} onChange={handleChange} onBlur={validateNames}></input>
+            {firstNameError && <p className={styles.error}>Please enter your first name.</p>}
 
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <label htmlFor="firstName">First name</label>
-                <input type="text" placeholder="First name" name="firstName" required value={form.firstName} onChange={handleChange} onBlur={validateNames}></input>
-                {firstNameError && <p className={styles.error}>Please enter your first name.</p>}
+            <label htmlFor="lastName">Last name</label>
+            <input type="text" placeholder="Last name" name="lastName" required value={form.lastName} onChange={handleChange} onBlur={validateNames}></input>
+            {lastNameError && <p className={styles.error}>Please enter your last name.</p>}
 
-                <label htmlFor="lastName">Last name</label>
-                <input type="text" placeholder="Last name" name="lastName" required value={form.lastName} onChange={handleChange} onBlur={validateNames}></input>
-                {lastNameError && <p className={styles.error}>Please enter your last name.</p>}
+            <label htmlFor="phone">Phone</label>
+            <input type="tel" placeholder="Phone" name="phone" value={form.phone} onChange={handleChange} onBlur={validatePhoneNumber}></input>
+            {phoneError && <p className={styles.error}>Please enter a correct phone number.</p>}
 
-                <label htmlFor="phone">Phone</label>
-                <input type="tel" placeholder="Phone" name="phone" value={form.phone} onChange={handleChange} onBlur={validatePhoneNumber}></input>
-                {phoneError && <p className={styles.error}>Please enter a correct phone number.</p>}
-
-                <label htmlFor="email">Email</label>
-                <input type="email" placeholder="Email" name="email" required value={form.email} onChange={handleChange} onBlur={validateEmailAddress}></input>
-                {emailError && <p className={styles.error}>Please enter a correct email address.</p>}
-            
-                <input type="submit" value="Submit"></input>
-            </form>
-        </>
+            <label htmlFor="email">Email</label>
+            <input type="email" placeholder="Email" name="email" required value={form.email} onChange={handleChange} onBlur={validateEmailAddress}></input>
+            {emailError && <p className={styles.error}>Please enter a correct email address.</p>}
+        
+            <input type="submit" value="Submit"></input>
+        </form>
     );
 }
 
