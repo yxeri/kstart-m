@@ -15,12 +15,12 @@ export function validatePhone(phone:string){
         }
 
         if(check === false){
-            return false;
+            return false; //validation didn't pass
         }
         else{
             check = false;
         }
     }
 
-    return true;
+    return true; //validation passed
 }

@@ -18,10 +18,19 @@
     
     input{
         display:block;
-        margin-bottom:10px;
     }
 
     .error{
+        margin:0px;
+        margin-bottom:10px;
         color:red;
+    }
+
+    .show{
+        visibility:visible;
+    }
+
+    .hide{
+        visibility:hidden;
     }
 }

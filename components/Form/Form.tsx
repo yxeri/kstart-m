@@ -1,67 +1,105 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { IUser } from "../../models/IUser";
+import { User } from "../../models/User";
 import { validateEmail } from "../ValidateEmail/ValidateEmail";
 import { validatePhone } from "../ValidatePhone/ValidatePhone";
+import Input from "./Input";
 import styles from './Form.module.scss';
 
 
 interface FormProps{
-    addUser: (user:IUser) => void;
+    addUser: (user:User) => void;
+}
+
+interface InputWasTouched{
+    firstName:boolean;
+    lastName:boolean;
+    phone:boolean;
+    email:boolean;
 }
 
 function Form({addUser}:FormProps){
 
-    const [form, setForm] = useState<IUser>({firstName:'', lastName:'', phone:'', email:''});
-    const [firstNameError, setFirstNameError] = useState<Boolean>(false);
-    const [lastNameError, setLastNameError] = useState<Boolean>(false);
-    const [phoneError, setPhoneError] = useState<Boolean>(false);
-    const [emailError, setEmailError] = useState<Boolean>(false);
+    const [form, setForm] = useState<User>({firstName:'', lastName:'', phone:'', email:''});
+    const [firstNameError, setFirstNameError] = useState<boolean>(false);
+    const [lastNameError, setLastNameError] = useState<boolean>(false);
+    const [phoneError, setPhoneError] = useState<boolean>(false);
+    const [emailError, setEmailError] = useState<boolean>(false);
+    const [inputWasTouched, setInputWasTouched] = useState<InputWasTouched>({firstName: false, lastName: false, phone: false, email: false});
 
 
     function handleChange(e:ChangeEvent<HTMLInputElement>){
 
         setForm({...form, [e.target.name]: e.target.value});
 
-        if(e.target.name === 'firstName' && e.target.value.length > 2){
-            setFirstNameError(false);
+
+        //lyckades inte komma åt inputWasTouched dynamiskt.
+
+        if(e.target.name === 'firstName' && inputWasTouched.firstName === true){
+            validateNames(e);
         }
 
-        if(e.target.name === 'lastName' && e.target.value.length > 2){
-            setLastNameError(false);
+        if(e.target.name === 'lastName' && inputWasTouched.lastName === true){
+            validateNames(e);
         }
 
-        if(e.target.name === 'phone' && validatePhone(e.target.value)){
-            setPhoneError(false);
+        if(e.target.name === 'phone' && inputWasTouched.phone === true){
+            validatePhoneNumber(e);
         }
 
-        if(e.target.name === 'email' && validateEmail(e.target.value)){
-            setEmailError(false);
+        if(e.target.name === 'email' && inputWasTouched.email === true){
+            validateEmailAddress(e);
         }
     }
 
 
-    function validateNames(e:React.FocusEvent<HTMLInputElement>){
+    function handleOnBlur(e:React.FocusEvent<HTMLInputElement>){
 
-        //first name validation
+        if(e.target.name === 'firstName'){
+            
+            setInputWasTouched({...inputWasTouched, firstName:true});
+            validateNames(e);
+        }
+
+        if(e.target.name === 'lastName'){
+            
+            setInputWasTouched({...inputWasTouched, lastName:true});
+            validateNames(e);
+        }
+
+        if(e.target.name === 'phone'){
+            
+            setInputWasTouched({...inputWasTouched, phone:true});
+            validatePhoneNumber(e);
+        }
+
+        if(e.target.name === 'email'){
+            
+            setInputWasTouched({...inputWasTouched, email:true});
+            validateEmailAddress(e);
+        }
+    }
+
+
+    function validateNames(e:React.FocusEvent<HTMLInputElement> | ChangeEvent<HTMLInputElement>){
+
         if(e.target.name == 'firstName' && e.target.value.length < 3){
             setFirstNameError(true);
         }
-        if(e.target.name == 'firstName' && e.target.value.length > 2){
+        else{
             setFirstNameError(false);
         }
 
 
-        //last name validation
         if(e.target.name == 'lastName' && e.target.value.length < 3){
             setLastNameError(true);
         }
-        if(e.target.name == 'lastName' && e.target.value.length > 2){
+        else{
             setLastNameError(false);
         }
     }
 
 
-    function validatePhoneNumber(e:React.FocusEvent<HTMLInputElement>){
+    function validatePhoneNumber(e:React.FocusEvent<HTMLInputElement> | ChangeEvent<HTMLInputElement>){
 
         if( !validatePhone(e.target.value) ){
             setPhoneError(true);
@@ -72,7 +110,7 @@ function Form({addUser}:FormProps){
     }
 
 
-    function validateEmailAddress(e:React.FocusEvent<HTMLInputElement>){
+    function validateEmailAddress(e:React.FocusEvent<HTMLInputElement> | ChangeEvent<HTMLInputElement>){
 
         if( !validateEmail(e.target.value) ){
             setEmailError(true);
@@ -87,7 +125,7 @@ function Form({addUser}:FormProps){
         
         e.preventDefault();
 
-        if(firstNameError === false && lastNameError === false){
+        if(firstNameError === false && lastNameError === false && phoneError === false && emailError === false){
             addUser(form);
             setForm({firstName:'', lastName:'', phone:'', email:''}); 
         }
@@ -99,22 +137,12 @@ function Form({addUser}:FormProps){
 
     return(
         <form className={styles.form} onSubmit={handleSubmit}>
-            <label htmlFor="firstName">First name</label>
-            <input type="text" placeholder="First name" name="firstName" required value={form.firstName} onChange={handleChange} onBlur={validateNames}></input>
-            {firstNameError && <p className={styles.error}>Please enter your first name.</p>}
+            
+            <Input name="firstName" placeholder="First name" value={form.firstName} handleChange={handleChange} handleOnBlur={handleOnBlur} error={firstNameError} errorMsg="Please enter your first name."></Input>
+            <Input name="lastName" placeholder="Last name" value={form.lastName}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={lastNameError} errorMsg="Please enter your last name."></Input>
+            <Input name="phone" placeholder="Phone number (optional)" value={form.phone} handleChange={handleChange} handleOnBlur={handleOnBlur} error={phoneError} errorMsg="Please enter a correct phone number."></Input>
+            <Input name="email" placeholder="Email" value={form.email}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={emailError} errorMsg="Please enter a correct email address."></Input>
 
-            <label htmlFor="lastName">Last name</label>
-            <input type="text" placeholder="Last name" name="lastName" required value={form.lastName} onChange={handleChange} onBlur={validateNames}></input>
-            {lastNameError && <p className={styles.error}>Please enter your last name.</p>}
-
-            <label htmlFor="phone">Phone</label>
-            <input type="tel" placeholder="Phone" name="phone" value={form.phone} onChange={handleChange} onBlur={validatePhoneNumber}></input>
-            {phoneError && <p className={styles.error}>Please enter a correct phone number.</p>}
-
-            <label htmlFor="email">Email</label>
-            <input type="email" placeholder="Email" name="email" required value={form.email} onChange={handleChange} onBlur={validateEmailAddress}></input>
-            {emailError && <p className={styles.error}>Please enter a correct email address.</p>}
-        
             <input type="submit" value="Submit"></input>
         </form>
     );

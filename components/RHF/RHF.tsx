@@ -1,44 +1,37 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
-import { IUser } from "../../models/IUser";
-import Email from './components/Email';
-import FirstName from './components/FirstName';
-import LastName from './components/LastName';
-import Phone from './components/Phone';
+import { FormProvider, useForm } from "react-hook-form";
+import { User } from "../../models/User";
+import Input from './Input';
 import styles from './RHF.module.scss';
 
 
-interface IFormProps{
-    addUser: (user:IUser) => void;
+type FormProps = {
+    addUser: (user:User) => void;
 }
 
-type formValues = {
-    firstName:string;
-    lastName:string;
-    phone:string;
-    email:string;
-}
 
-function RHF({addUser}:IFormProps){
+function RHF({addUser}:FormProps){
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<formValues>({mode: 'onTouched'});
+    const methods = useForm<User>({mode: 'onTouched'});
 
-    function onSubmit(data:IUser){
+    function onSubmit(data:User){
         addUser(data);
-        reset();
+        methods.reset();
     }
 
 
     return(
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+            <form className={styles.form} onSubmit={methods.handleSubmit(onSubmit)}>
 
-            <FirstName register={register} errors={errors}></FirstName>
-            <LastName register={register} errors={errors}></LastName>
-            <Phone register={register} errors={errors}></Phone>
-            <Email register={register} errors={errors}></Email>
-            
-            <input type="submit" value="Submit"></input>
-        </form>
+                <Input name="firstName" label="First name" type={'text'} req={true} minLength={3} errorMsg="Please enter your first name."></Input>
+                <Input name="lastName" label="Last name" type={'text'} req={true} minLength={3} errorMsg="Please enter your last name."></Input>
+                <Input name="phone" label="Phone number (optional)" type={'tel'} req={false} minLength={0} errorMsg="Please enter a correct phone number."></Input>
+                <Input name="email" label="Email" type={'email'} req={true} minLength={0} errorMsg="Please enter your email address."></Input>
+
+                <input type="submit" value="Submit"></input>
+            </form>
+        </FormProvider>
     );
 }
 
