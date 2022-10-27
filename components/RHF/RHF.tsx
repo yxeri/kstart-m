@@ -2,6 +2,7 @@ import React from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { User } from "../../models/User";
 import Input from './Input';
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 import styles from './RHF.module.scss';
 
 
@@ -18,6 +19,8 @@ function RHF({addUser}:FormProps){
         addUser(data);
         methods.reset();
     }
+
+    
 
 
     return(
