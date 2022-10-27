@@ -85,7 +85,7 @@ function Form({addUser}:FormProps){
         if(e.target.name == 'firstName' && e.target.value.length < 3){
             setFirstNameError(true);
         }
-        else{
+        else if(e.target.name == 'firstName'){
             setFirstNameError(false);
         }
 
@@ -93,7 +93,7 @@ function Form({addUser}:FormProps){
         if(e.target.name == 'lastName' && e.target.value.length < 3){
             setLastNameError(true);
         }
-        else{
+        else if(e.target.name == 'lastName'){
             setLastNameError(false);
         }
     }
@@ -138,10 +138,10 @@ function Form({addUser}:FormProps){
     return(
         <form className={styles.form} onSubmit={handleSubmit}>
             
-            <Input name="firstName" placeholder="First name" value={form.firstName} handleChange={handleChange} handleOnBlur={handleOnBlur} error={firstNameError} errorMsg="Please enter your first name."></Input>
-            <Input name="lastName" placeholder="Last name" value={form.lastName}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={lastNameError} errorMsg="Please enter your last name."></Input>
-            <Input name="phone" placeholder="Phone number (optional)" value={form.phone} handleChange={handleChange} handleOnBlur={handleOnBlur} error={phoneError} errorMsg="Please enter a correct phone number."></Input>
-            <Input name="email" placeholder="Email" value={form.email}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={emailError} errorMsg="Please enter a correct email address."></Input>
+            <Input name="firstName" label="First name" value={form.firstName} handleChange={handleChange} handleOnBlur={handleOnBlur} error={firstNameError} errorMsg="Please enter your first name."></Input>
+            <Input name="lastName" label="Last name" value={form.lastName}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={lastNameError} errorMsg="Please enter your last name."></Input>
+            <Input name="phone" label="Phone number (optional)" value={form.phone} handleChange={handleChange} handleOnBlur={handleOnBlur} error={phoneError} errorMsg="Please enter a correct phone number."></Input>
+            <Input name="email" label="Email" value={form.email}  handleChange={handleChange} handleOnBlur={handleOnBlur} error={emailError} errorMsg="Please enter a correct email address."></Input>
 
             <input type="submit" value="Submit"></input>
         </form>

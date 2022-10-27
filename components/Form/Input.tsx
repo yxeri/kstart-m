@@ -1,10 +1,9 @@
 import { ChangeEvent } from 'react';
-import { User } from '../../models/User';
 import styles from './Form.module.scss';
 
 type props = {
     name:string;
-    placeholder:string;
+    label:string;
     value:string;
     handleChange:(e:ChangeEvent<HTMLInputElement>) => void;
     handleOnBlur:(e:React.FocusEvent<HTMLInputElement>) => void;
@@ -12,12 +11,12 @@ type props = {
     errorMsg:string;
 }
 
-function Input({name, placeholder, value, handleChange, handleOnBlur, error, errorMsg}:props){
+function Input({name, label, value, handleChange, handleOnBlur, error, errorMsg}:props){
 
     return(
         <>
-            <label htmlFor={name}>First name</label>
-            <input type="text" placeholder={placeholder} name={name} required value={value} onChange={handleChange} onBlur={handleOnBlur}></input>
+            <label htmlFor={name}>{label}</label>
+            <input type="text" placeholder={label} name={name} required value={value} onChange={handleChange} onBlur={handleOnBlur}></input>
             <p className={styles.error + ' ' + (error ? styles.show : styles.hide)}>{errorMsg}</p>
         </>
     );
