@@ -4,21 +4,21 @@ import Form from '../components/Form/Form';
 import List from '../components/List/List';
 import RHF from '../components/RHF/RHF';
 import RHFList from '../components/RHFList/RHFList';
-import { IUser } from '../models/IUser';
+import { User } from '../models/User';
 import styles from '../styles/Index.module.scss';
 
 const Index: NextPage = () => {
 
-    const [usersRHF, setUsersRHF] = useState<IUser[]>([]);
-    const [users, setUsers] = useState<IUser[]>([]);
+    const [usersRHF, setUsersRHF] = useState<User[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
 
-    function addUserRHF(user:IUser){
+    function addUserRHF(user:User){
         setUsersRHF([...usersRHF, user]);
     }
 
     
-    function addUser(user:IUser){
+    function addUser(user:User){
         setUsers([...users, user]);
     }
 

@@ -1,8 +1,8 @@
 import styles from './RHFList.module.scss';
-import { IUser } from "../../models/IUser";
+import { User } from "../../models/User";
 
 interface ListProps{
-    users:IUser[];
+    users:User[];
 }
 
 function RHFList({users}:ListProps){

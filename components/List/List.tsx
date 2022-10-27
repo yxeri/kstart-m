@@ -1,8 +1,8 @@
 import styles from './List.module.scss';
-import { IUser } from "../../models/IUser";
+import { User } from "../../models/User";
 
 interface ListProps{
-    users:IUser[];
+    users:User[];
 }
 
 function List({users}:ListProps){
