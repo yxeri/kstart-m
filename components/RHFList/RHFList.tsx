@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
-import { usersRHF } from '../../atoms/UsersRHF';
+import { RHFUsers } from '../../atoms/RHFUsers';
 import { User } from "../../models/User";
 import styles from './RHFList.module.scss';
 
 function RHFList(){
 
-    const users = useRecoilValue<User>(usersRHF);
+    const users = useRecoilValue<User[]>(RHFUsers);
 
     return(
         <>
