@@ -1,0 +1,42 @@
+@media screen and (min-width:'1312px') {
+    
+    .outer{
+        grid-template-columns:1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width:'992px') and (max-width:'1311px') {
+    
+    .outer{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width:'688px') and (max-width:'991px') {
+    
+    .outer{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media screen and (max-width:'687px') {
+    
+    .outer{
+        grid-template-columns:1fr;
+    }
+}
+
+
+
+
+.outer{
+    
+    display:grid;
+    gap:20px;
+
+    div{
+        padding:10px;
+        border:2px solid red;
+        color:red;
+    }
+}

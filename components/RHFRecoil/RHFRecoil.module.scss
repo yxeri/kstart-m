@@ -1,0 +1,34 @@
+//phone
+@media screen and (max-width: 768px) {
+    .form{
+        margin:auto;
+    }
+}
+
+//desktop
+@media screen and (min-width: 769px) {
+
+}
+
+.form{
+    padding:20px;
+    border:2px solid black;
+    
+    input{
+        display:block;
+    }
+
+    .error{
+        margin:0px;
+        margin-bottom:10px;
+        color:red;
+    }
+
+    .show{
+        visibility:visible;
+    }
+
+    .hide{
+        visibility:hidden;
+    }
+}

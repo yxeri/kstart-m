@@ -1,15 +1,15 @@
-import styles from './RHFList.module.scss';
+import { useRecoilValue } from 'recoil';
+import { RHFUsers } from '../../atoms/RHFUsers';
 import { User } from "../../models/User";
+import styles from './RHFRecoilList.module.scss';
 
-interface ListProps{
-    users:User[];
-}
+function RHFRecoilList(){
 
-function RHFList({users}:ListProps){
+    const users = useRecoilValue<User[]>(RHFUsers);
 
     return(
         <>
-            {users.map((user, i) => {
+            {users.map((user:User, i:number) => {
 
                 return(
                     <div className={styles.user} key={i}>
@@ -24,4 +24,4 @@ function RHFList({users}:ListProps){
     );
 }
 
-export default RHFList;
+export default RHFRecoilList;

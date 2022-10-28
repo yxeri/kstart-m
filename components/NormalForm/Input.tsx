@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import styles from './Form.module.scss';
+import styles from './NormalForm.module.scss';
 
 type props = {
     name:string;

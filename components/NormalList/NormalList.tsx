@@ -1,10 +1,10 @@
-import styles from './List.module.scss';
+import styles from './NormalList.module.scss';
 import { User } from "../../models/User";
 import { useRecoilValue } from 'recoil';
 import { Users } from '../../atoms/Users';
 
 
-function List(){
+function NormalList(){
 
     const users = useRecoilValue<User[]>(Users);
 
@@ -25,4 +25,4 @@ function List(){
     );
 }
 
-export default List;
+export default NormalList;
