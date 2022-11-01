@@ -73,8 +73,8 @@ function RadixWithStitchesPage(){
                 },
 
                 borderRadiusBottom:{
-                    '&[data-state="closed"]':{animation:`${addBorderRadius} 800ms forwards`},
-                    '&[data-state="open"]':{animation:`${removeBorderRadius} 100ms forwards`}
+                    '&[data-state="open"]':{animation:`${removeBorderRadius} 100ms forwards`},
+                    '&[data-state="closed"]':{animation:`${addBorderRadius} 800ms forwards`}
                 }
             }
         }
