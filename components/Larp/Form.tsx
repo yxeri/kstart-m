@@ -1,12 +1,21 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { LarpUser } from "../../models/LarpUser";
 import Input from "./Input";
-import styles from "./Form.module.scss";
 import axios from "axios";
+import { styled } from "@stitches/react";
 
 export default function Form(){
 
     const methods = useForm<LarpUser>({mode: 'onTouched'});
+
+    const Button = styled('button', {
+        width:'100%',
+        height:39,
+    
+        backgroundColor:'transparent',
+        borderRadius:10,
+        cursor:'pointer'
+    });
 
     async function onSubmit(data:LarpUser){
 
@@ -31,7 +40,7 @@ export default function Form(){
                 <Input name="username" label="User name" type="text" minLength={2} errorMsg="Please enter your username."></Input>
                 <Input name="password" label="Password" type="password" minLength={10} errorMsg="Your password need to be at least 10 characters long."></Input>
 
-                <button type="submit" className={styles.button}>Submit</button>
+                <Button type="submit">Submit</Button>
             </form>
         </FormProvider>
     );
