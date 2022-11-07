@@ -2,22 +2,25 @@ import React from 'react';
 import { FormProvider, useForm } from "react-hook-form";
 import { User } from "../../models/User";
 import Input from './Input';
-import styles from './RHF.module.scss';
+import { useRecoilState } from 'recoil';
+import { RHFUsers } from '../../atoms/RHFUsers';
+import styles from './RHFRecoil.module.scss';
 
 
-type FormProps = {
-    addUser: (user:User) => void;
-}
 
-
-function RHF({addUser}:FormProps){
+function RHFRecoil(){
 
     const methods = useForm<User>({mode: 'onTouched'});
 
+    const [users, setUsers] = useRecoilState(RHFUsers);
+
     function onSubmit(data:User){
-        addUser(data);
+
+        setUsers([...users, data]);
         methods.reset();
     }
+
+    
 
 
     return(
@@ -35,4 +38,4 @@ function RHF({addUser}:FormProps){
     );
 }
 
-export default RHF;
+export default RHFRecoil;

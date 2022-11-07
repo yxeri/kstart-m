@@ -3,7 +3,7 @@ import { User } from "../../models/User";
 import { validateEmail } from "../ValidateEmail/ValidateEmail";
 import { validatePhone } from "../ValidatePhone/ValidatePhone";
 import Input from "./Input";
-import styles from './Form.module.scss';
+import styles from './NormalForm.module.scss';
 import { useRecoilState } from "recoil";
 import { Users } from "../../atoms/Users";
 
@@ -15,7 +15,7 @@ interface InputWasTouched{
     email:boolean;
 }
 
-function Form(){
+function NormalForm(){
 
     const [form, setForm] = useState<User>({firstName:'', lastName:'', phone:'', email:''});
     const [firstNameError, setFirstNameError] = useState<boolean>(false);
@@ -147,4 +147,4 @@ function Form(){
     );
 }
 
-export default Form;
+export default NormalForm;
