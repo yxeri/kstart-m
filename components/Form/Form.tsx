@@ -4,11 +4,9 @@ import { validateEmail } from "../ValidateEmail/ValidateEmail";
 import { validatePhone } from "../ValidatePhone/ValidatePhone";
 import Input from "./Input";
 import styles from './Form.module.scss';
+import { useRecoilState } from "recoil";
+import { Users } from "../../atoms/Users";
 
-
-interface FormProps{
-    addUser: (user:User) => void;
-}
 
 interface InputWasTouched{
     firstName:boolean;
@@ -17,7 +15,7 @@ interface InputWasTouched{
     email:boolean;
 }
 
-function Form({addUser}:FormProps){
+function Form(){
 
     const [form, setForm] = useState<User>({firstName:'', lastName:'', phone:'', email:''});
     const [firstNameError, setFirstNameError] = useState<boolean>(false);
@@ -25,6 +23,7 @@ function Form({addUser}:FormProps){
     const [phoneError, setPhoneError] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<boolean>(false);
     const [inputWasTouched, setInputWasTouched] = useState<InputWasTouched>({firstName: false, lastName: false, phone: false, email: false});
+    const [users, setUsers] = useRecoilState<User[]>(Users);
 
 
     function handleChange(e:ChangeEvent<HTMLInputElement>){
@@ -126,7 +125,7 @@ function Form({addUser}:FormProps){
         e.preventDefault();
 
         if(firstNameError === false && lastNameError === false && phoneError === false && emailError === false){
-            addUser(form);
+            setUsers([...users, form]);
             setForm({firstName:'', lastName:'', phone:'', email:''}); 
         }
         else{

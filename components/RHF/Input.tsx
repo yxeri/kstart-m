@@ -43,5 +43,3 @@ function Input({name, label, type, req, minLength, errorMsg}:props){
 }
 
 export default Input;
-
-//{error && <p className={styles.error}>{errorMsg}</p>}

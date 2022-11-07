@@ -1,11 +1,12 @@
 import styles from './List.module.scss';
 import { User } from "../../models/User";
+import { useRecoilValue } from 'recoil';
+import { Users } from '../../atoms/Users';
 
-interface ListProps{
-    users:User[];
-}
 
-function List({users}:ListProps){
+function List(){
+
+    const users = useRecoilValue<User[]>(Users);
 
     return(
         <>
