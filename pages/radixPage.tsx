@@ -1,5 +1,4 @@
 import * as Accordion from '@radix-ui/react-accordion';
-import { styled } from '@stitches/react';
 import styles from '../styles/radixPage.module.scss';
 
 function RadixPage(){
