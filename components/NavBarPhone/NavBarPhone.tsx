@@ -130,12 +130,17 @@ export default function NavBarPhone(){
                                 </Li>
                                 <Li>
                                     <Link href="/recoil" passHref>
-                                        <A>{currentPage === '/recoil' ? <Span>Recoil</Span> : 'Recoil'}</A>
+                                        <A>{currentPage === '/recoil' ? <Span>Recoil with RHF</Span> : 'Recoil with RHF'}</A>
                                     </Link>
                                 </Li>
                                 <Li borderRadius={'borderRadiusBottom'}>
                                     <Link href="/stitchesPage" passHref>
                                         <A>{currentPage === '/stitchesPage' ? <Span>Stitches</Span> : 'Stitches'}</A>
+                                    </Link>
+                                </Li>
+                                <Li>
+                                    <Link href="/larp" passHref>
+                                        <A>{currentPage === '/larp' ? <Span>Larp</Span> : 'Larp'}</A>
                                     </Link>
                                 </Li>
                             </Ul>

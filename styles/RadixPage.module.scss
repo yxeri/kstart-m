@@ -8,7 +8,7 @@
         .header{
             width:100%;
             margin:0px;
-            background-color:rgb(55, 55, 55);
+            background-color:rgb(0, 71, 165);
     
             .trigger{
                 width:100%;
@@ -22,12 +22,12 @@
         }
 
         .header:hover{
-            background-color:rgb(75, 75, 75);
+            background-color:rgb(21, 88, 177);
         }
 
         .content{
             padding-left:10px;
-            background-color:rgb(100, 100, 100);
+            background-color:rgb(0, 96, 223);
             user-select:none;
             cursor:pointer;
         }
@@ -49,7 +49,7 @@
         }
 
         .content:hover{
-            background-color:rgb(120, 120, 120);
+            background-color:rgb(28, 123, 247);
         }
 
         .contentSpan{

@@ -1,0 +1,25 @@
+.label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.input{
+    width:100%;
+    padding:10px;
+    box-sizing:border-box;
+    border-radius:10px;
+}
+
+.error{
+
+    color:red;
+}
+
+.show{
+    visibility: visible;
+}
+
+.hide{
+    visibility: hidden;
+}
