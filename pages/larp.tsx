@@ -1,12 +1,20 @@
 import { styled } from "@stitches/react";
 import { useState } from "react";
-import Form from "../components/Larp/Form";
+import CreateUserModal from "../components/Larp/CreateUserModal/CreateUserModal";
+import LoginModal from "../components/Larp/LoginModal/LoginModal";
 
 export default function Larp(){
 
-    const [showModal, setShowModal] = useState(false);
+    const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+    const Div = styled('div', {
+        margin:'auto',
+        width:'fit-content'
+    });
 
     const Button = styled('button', {
+        marginLeft:10,
         backgroundColor:'#003e85',
         color:'white',
         border:'none',
@@ -25,48 +33,25 @@ export default function Larp(){
         backgroundColor:'rgba(0, 0, 0, 0.25)'
     })
 
-    const Modal = styled('div', {
-        position:'absolute',
-        left:'50%',
-        top:'50%',
-        transform:'translate(-50%, -50%)',
-
-        backgroundColor:'white',
-        padding:20,
-        borderRadius:10,
-        boxShadow:'5px 5px 5px rgba(0, 0, 0, 0.25)'
-    });
-
-    const Exit = styled('button', {
-        position:'absolute',
-        top:10,
-        right:10,
-        backgroundColor:'white',
-        borderRadius:'5px',
-        cursor:'pointer'
-    });
-
-    const H2 = styled('h2', {
-        textAlign:'center',
-    });
 
 
     return(
         <>
-            <Button onClick={() => {setShowModal(true)}}>Create User</Button>
+            <Div>
+                <Button onClick={() => {setShowCreateUserModal(true)}}>Create User</Button>
+                <Button onClick={() => {setShowLoginModal(true)}}>Login</Button>
+            </Div>
 
-            {showModal &&
-
-            <Background>
-                <Modal>
-                    <Exit onClick={() => {setShowModal(false)}}>X</Exit>
-
-                    <H2>Create new user</H2>
-
-                    <Form></Form>
-                    
-                </Modal>
+            {showCreateUserModal &&
+            <Background>  
+                <CreateUserModal closeModal={() => {setShowCreateUserModal(false)}}></CreateUserModal>
             </Background>}
+
+            {showLoginModal &&
+            <Background>
+                <LoginModal closeModal={() => {setShowLoginModal(false)}}></LoginModal>
+            </Background>
+            }
         </>
     );
 }
