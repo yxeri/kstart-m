@@ -1,7 +1,6 @@
-import { styled } from "@stitches/react";
 import { useRouter } from "next/router";
 import Link from 'next/link';
-import colors from '../../variables/colors';
+import { styled } from "../../styles/stitches.config";
 
 export default function NavBarDesktop(){
 
@@ -10,7 +9,7 @@ export default function NavBarDesktop(){
 
     const Nav = styled('nav', {
         marginBottom:50,
-        backgroundColor:colors.primary,
+        backgroundColor:'$primary',
         borderBottom:'1px solid white',
         display:'flex',
         justifyContent:'center',
@@ -25,7 +24,7 @@ export default function NavBarDesktop(){
     });
 
     const Li = styled('li', {
-        '&:hover':{backgroundColor:colors.secondary},
+        '&:hover':{backgroundColor:'$secondary'},
     })
     
     const A = styled('a', {
@@ -35,12 +34,11 @@ export default function NavBarDesktop(){
         paddingLeft:15,
         paddingRight:15,
         textDecoration:'none',
-        color:colors.tertiary,
+        color:'$tertiary',
     });
 
     const SpanBold = styled('span', {
-        //fontWeight:'bold',
-        textShadow:`0px 1px 0px ${colors.tertiary}`
+        fontWeight:'bold',
     });
 
 

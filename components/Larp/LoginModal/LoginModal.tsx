@@ -2,10 +2,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { LarpUser } from "../../../models/LarpUser";
 import Input from "../Input/Input";
 import axios from "axios";
-import { styled } from "@stitches/react";
 import { useState } from "react";
 import LoggedIn from "./LoggedIn";
-import colors from "../../../variables/colors";
+import { styled } from "../../../styles/stitches.config";
 
 type props = {
     closeModal: () => void;
@@ -20,8 +19,8 @@ const Modal = styled('div', {
     minWidth:306,
     boxSizing:'border-box',
 
-    color:colors.tertiary,
-    backgroundColor:colors.primary,
+    color:'$tertiary',
+    backgroundColor:'$primary',
     padding:20,
     borderRadius:10,
     boxShadow:'5px 5px 5px rgba(0, 0, 0, 0.25)'
@@ -36,26 +35,26 @@ const Exit = styled('button', {
     top:10,
     right:10,
 
-    backgroundColor:colors.primary,
-    color:colors.tertiary,
-    border:`1px solid ${colors.tertiary}`,
+    backgroundColor:'$primary',
+    color:'$tertiary',
+    border:`1px solid $tertiary`,
     borderRadius:'5px',
     cursor:'pointer',
 
-    '&:hover':{backgroundColor:colors.secondary}
+    '&:hover':{backgroundColor:'$secondary'}
 });
 
 const Button = styled('button', {
     width:'100%',
     height:39,
 
-    backgroundColor:colors.primary,
-    color:colors.tertiary,
-    border:`1px solid ${colors.tertiary}`,
+    backgroundColor:'$primary',
+    color:'$tertiary',
+    border:`1px solid $tertiary`,
     borderRadius:10,
     cursor:'pointer',
 
-    '&:hover':{backgroundColor:colors.secondary}
+    '&:hover':{backgroundColor:'$secondary'}
 });
 
 const Error = styled('p', {
@@ -68,6 +67,7 @@ export default function LoginModal(props:props){
     const methods = useForm<LarpUser>({mode: 'onTouched'});
     const [status, setStatus] = useState(0);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [userData, setUserData] = useState({token:'', userId:''});
 
 
     async function onSubmit(data:LarpUser){
@@ -78,12 +78,14 @@ export default function LoginModal(props:props){
             password: data.password
         });
 
-        console.log(res);
-
 
         if(res.data.data && res.data.data.token){
+            setUserData({token: res.data.data.token, userId: res.data.data.user._id});
             setLoggedIn(true);
-            methods.reset();
+            methods.reset();   
+
+            
+            
         }
         else{
             setStatus(res.data);
@@ -111,7 +113,7 @@ export default function LoginModal(props:props){
                 {status === 500 && <Error>Server is down.</Error>}
             </>}
 
-            {loggedIn && <LoggedIn logout={() => {setLoggedIn(false);}}></LoggedIn>}
+            {loggedIn && <LoggedIn logout={() => {setLoggedIn(false);}} userData={userData}></LoggedIn>}
         </Modal>
     );
 }

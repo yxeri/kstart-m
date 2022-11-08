@@ -1,4 +1,4 @@
-import { styled, createStitches } from '@stitches/react';
+import { createStitches } from '@stitches/react';
 import { useRecoilValue } from 'recoil';
 import { DarkMode } from '../../atoms/DarkMode';
 

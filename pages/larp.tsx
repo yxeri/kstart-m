@@ -1,8 +1,7 @@
-import { styled } from "@stitches/react";
 import { useState } from "react";
 import CreateUserModal from "../components/Larp/CreateUserModal/CreateUserModal";
 import LoginModal from "../components/Larp/LoginModal/LoginModal";
-import colors from "../variables/colors";
+import { styled } from "../styles/stitches.config";
 
 export default function Larp(){
 
@@ -16,13 +15,13 @@ export default function Larp(){
 
     const Button = styled('button', {
         marginLeft:10,
-        backgroundColor:colors.primary,
-        color:colors.tertiary,
+        backgroundColor:'$primary',
+        color:'$tertiary',
         border:'none',
         padding:10,
         borderRadius:10,
         cursor:'pointer',
-        '&:hover':{backgroundColor:colors.secondary},
+        '&:hover':{backgroundColor:'$secondary'},
     });
 
     const Background = styled('div', {
