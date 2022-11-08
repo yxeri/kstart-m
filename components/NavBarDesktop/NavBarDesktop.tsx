@@ -1,6 +1,7 @@
 import { styled } from "@stitches/react";
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import colors from '../../variables/colors';
 
 export default function NavBarDesktop(){
 
@@ -8,11 +9,12 @@ export default function NavBarDesktop(){
     let currentPage = router.pathname;
 
     const Nav = styled('nav', {
-        margin:'auto',
         marginBottom:50,
-        width:'fit-content',
-        backgroundColor:'#003e85',
-        borderRadius:'10px 10px 10px 10px',
+        backgroundColor:colors.primary,
+        borderBottom:'1px solid white',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'end'
     });
 
     const Ul = styled('ul', {
@@ -23,20 +25,22 @@ export default function NavBarDesktop(){
     });
 
     const Li = styled('li', {
-        borderRadius:'10px 10px 10px 10px',
-        '&:hover':{backgroundColor:'#0052b1'},
+        '&:hover':{backgroundColor:colors.secondary},
     })
     
     const A = styled('a', {
         display:'block',
-        padding:15,
+        paddingTop:25,
+        paddingBottom:25,
+        paddingLeft:15,
+        paddingRight:15,
         textDecoration:'none',
-        color:'white',
+        color:colors.tertiary,
     });
 
     const SpanBold = styled('span', {
         //fontWeight:'bold',
-        textShadow:'0px 1px 0px white'
+        textShadow:`0px 1px 0px ${colors.tertiary}`
     });
 
 

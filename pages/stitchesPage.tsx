@@ -3,6 +3,7 @@ import ResponsiveDiv from '../components/ResponsiveDiv/ResponsiveDiv';
 import ResponsiveDivStitches from '../components/ResponsiveDivStitches/ResponsiveDivStitches';
 import { useRecoilState } from 'recoil';
 import { DarkMode } from '../atoms/DarkMode';
+import colors from '../variables/colors';
 
 function StitchesPage(){
 
@@ -24,12 +25,12 @@ function StitchesPage(){
             darkMode:{
                 dark:{
                     backgroundColor:'white',
-                    color:'#3b3b3b'
+                    color:colors.tertiary
                 },
 
                 light:{
-                    backgroundColor:'#3b3b3b',
-                    color:'white'
+                    backgroundColor:colors.primary,
+                    color:colors.tertiary
                 }
             }
         }
