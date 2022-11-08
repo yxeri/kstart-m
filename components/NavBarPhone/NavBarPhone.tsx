@@ -2,6 +2,7 @@ import * as Accordion from '@radix-ui/react-accordion';
 import { styled, keyframes } from '@stitches/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import colors from '../../variables/colors';
 
 export default function NavBarPhone(){
 
@@ -31,11 +32,11 @@ export default function NavBarPhone(){
     });
 
     const AccordionRoot = styled(Accordion.Root, {
-        marginBottom:50,
+        marginBottom:50
     });
 
     const AccordionHeader = styled(Accordion.Header, {
-        margin:0,
+        margin:0
     });
 
     const AccordionTrigger = styled(Accordion.Trigger, {
@@ -44,10 +45,10 @@ export default function NavBarPhone(){
 
         border:'none',
         cursor:'pointer',
-        backgroundColor:'#003e85',
-        color:'#ffffff',
+        backgroundColor:colors.primary,
+        color:colors.tertiary,
 
-        '&:hover':{backgroundColor:'#0052b1'},
+        '&:hover':{backgroundColor:colors.secondary},
 
         '&[data-state="open"]':{animation:`${removeBorderRadius} 100ms forwards`},
         '&[data-state="closed"]':{animation:`${addBorderRadius} 800ms forwards`}
@@ -58,7 +59,7 @@ export default function NavBarPhone(){
         position:'absolute',
 
         boxSizing:'border-box',
-        backgroundColor:'#003e85',
+        backgroundColor:colors.primary,
         borderRadius:'0px 0px 10px 10px',
         overflow:'hidden',
 
@@ -77,7 +78,7 @@ export default function NavBarPhone(){
     });
 
     const Li = styled('li', {
-        '&:hover':{backgroundColor:'#0052b1'},
+        '&:hover':{backgroundColor:colors.secondary},
 
         variants:{
 
@@ -94,7 +95,7 @@ export default function NavBarPhone(){
         display:'block',
         padding:10,
         textDecoration:'none',
-        color:'white'
+        color:colors.tertiary
     });
 
     const Span = styled('span', {

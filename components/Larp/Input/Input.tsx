@@ -6,10 +6,11 @@ interface props{
     label:string;
     type:string;
     minLength:number;
+    maxLength?:number;
     errorMsg:string;
 }
 
-export default function Input({name, label, type, minLength, errorMsg}:props){
+export default function Input({name, label, type, minLength, maxLength, errorMsg}:props){
 
     const {register, getFieldState, formState} = useFormContext();
     const {error} = getFieldState(name, formState);
@@ -23,6 +24,7 @@ export default function Input({name, label, type, minLength, errorMsg}:props){
                 {
                     required: true,
                     minLength: minLength,
+                    maxLength: maxLength
                 }
             )}>
             </input>

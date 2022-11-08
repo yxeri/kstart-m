@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { DarkMode } from "../../atoms/DarkMode";
+import colors from "../../variables/colors";
 import styles from './DarkModeBackground.module.scss';
 
 function DarkModeBackground(){
@@ -7,7 +8,7 @@ function DarkModeBackground(){
     const darkMode = useRecoilValue(DarkMode);
 
     return(
-        <div className={styles.div} style={{backgroundColor: darkMode ? '#3b3b3b' : 'white'}}></div>
+        <div className={styles.div} style={{backgroundColor: darkMode ? colors.primary : 'white'}}></div>
     );
 }
 
