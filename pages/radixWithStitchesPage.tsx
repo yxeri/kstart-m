@@ -32,6 +32,7 @@ function RadixWithStitchesPage(){
         height:35,
         backgroundColor:'$primary',
         color:'$tertiary',
+        overflow:'hidden',
         
         '&[data-state="open"]': {animation: `${open} 300ms ease-out`},
         '&[data-state="closed"]': {animation: `${close} 300ms ease-out`},

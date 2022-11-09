@@ -3,12 +3,8 @@ import { LarpUser } from "../../../models/LarpUser";
 import Input from "../Input/Input";
 import axios from "axios";
 import { useState } from "react";
-import LoggedIn from "./LoggedIn";
+import LoggedIn from "../LoggedIn/LoggedIn";
 import { styled } from "../../../styles/stitches.config";
-
-type props = {
-    closeModal: () => void;
-}
 
 const Modal = styled('div', {
     position:'absolute',
@@ -62,12 +58,17 @@ const Error = styled('p', {
 });
 
 
+type props = {
+    closeModal: () => void;
+    setLoggedIn: (input:boolean) => void;
+    setUserData: (token:string, userId:string, username:string) => void;
+}
+
+
 export default function LoginModal(props:props){
 
     const methods = useForm<LarpUser>({mode: 'onTouched'});
     const [status, setStatus] = useState(0);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [userData, setUserData] = useState({token:'', userId:''});
 
 
     async function onSubmit(data:LarpUser){
@@ -77,27 +78,27 @@ export default function LoginModal(props:props){
             username: data.username,
             password: data.password
         });
-
+        
 
         if(res.data.data && res.data.data.token){
-            setUserData({token: res.data.data.token, userId: res.data.data.user._id});
-            setLoggedIn(true);
-            methods.reset();   
-
+            props.setUserData(res.data.data.token, res.data.data.user._id, res.data.data.user.username);
+            props.setLoggedIn(true);
             
-            
+            localStorage.setItem('user', res.data.data.token);
+            methods.reset();
         }
         else{
             setStatus(res.data);
         }
     }
 
+
     return(
         <Modal>
-            {loggedIn === false && <>
+
+            <Exit onClick={() => {props.closeModal()}}>X</Exit>
 
                 <H2>Login</H2>
-                <Exit onClick={() => {props.closeModal()}}>X</Exit>
 
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -111,9 +112,7 @@ export default function LoginModal(props:props){
                 {status === 401 && <Error>Incorrect password.</Error>}
                 {status === 404 && <Error>User doesn't exist.</Error>}
                 {status === 500 && <Error>Server is down.</Error>}
-            </>}
-
-            {loggedIn && <LoggedIn logout={() => {setLoggedIn(false);}} userData={userData}></LoggedIn>}
+            
         </Modal>
     );
 }

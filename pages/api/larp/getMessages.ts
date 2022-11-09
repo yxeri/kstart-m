@@ -11,7 +11,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
     }
 
     try{
-        let response = await axios.delete('https://terminal.thethirdgift.com/api/users/' + req.body.userId, config);
+        let response = await axios.get(`https://terminal.thethirdgift.com/api/rooms/${req.body.roomId}/messages`, config);
 
         res.send(response.data);
     }
@@ -22,6 +22,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
 
         if(err){
             console.log('Axios Error:', err.response?.status);
+            
             res.send(err.response?.status);
         }
     }

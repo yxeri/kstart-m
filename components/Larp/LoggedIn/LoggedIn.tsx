@@ -1,29 +1,18 @@
 import axios from "axios";
 import { styled } from "../../../styles/stitches.config";
 
-type props = {
-    logout: () => void;
-    userData:{
-        token:string;
-        userId:string;
-    };
-}
-
-
-
 const Div = styled('div', {
     borderRadius:10,
     textAlign:'center',
 });
 
 const P = styled('p', {
-    color:'green'
+    color:'$tertiary'
 });
 
 const Button = styled('button', {
-    width:'100%',
     height:39,
-    marginBottom:10,
+    marginLeft:10,
 
     backgroundColor:'$primary',
     color:'$tertiary',
@@ -34,6 +23,16 @@ const Button = styled('button', {
     '&:hover':{backgroundColor:'$secondary'}
 });
 
+
+type props = {
+    userData:{
+        token:string;
+        userId:string;
+        username:string;
+    };
+
+    logout: () => void;
+}
 
 
 export default function LoggedIn(props:props){
@@ -47,9 +46,10 @@ export default function LoggedIn(props:props){
 
     return(
         <Div>
-            <P>You are now logged in.</P>
-            <Button onClick={props.logout}>Logout</Button>
+            <P>Welcome {props.userData.username}!</P>
+
             <Button onClick={deleteUser}>Delete user</Button>
+            <Button onClick={props.logout}>Logout</Button>
         </Div>
     );
 }

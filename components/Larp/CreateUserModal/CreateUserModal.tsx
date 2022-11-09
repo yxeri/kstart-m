@@ -48,7 +48,7 @@ const Button = styled('button', {
     height:39,
 
     backgroundColor:'$primary',
-    color:'$secondary',
+    color:'$tertiary',
     border:`1px solid $tertiary`,
     borderRadius:10,
     cursor:'pointer',

@@ -30,6 +30,11 @@ export default function NavBarPhone(){
         to:{borderRadius:'10px 10px 00px 00px'}
     });
 
+    const Div = styled('div', {
+        marginTop:10,
+        marginLeft:10
+    });
+
     const AccordionRoot = styled(Accordion.Root, {
         marginBottom:50
     });
@@ -102,7 +107,7 @@ export default function NavBarPhone(){
     });
 
     return(
-        <>
+        <Div>
             <AccordionRoot type="single" collapsible>
 
                 <Accordion.Item value="navBar">
@@ -149,6 +154,6 @@ export default function NavBarPhone(){
                 </Accordion.Item>
 
             </AccordionRoot>
-        </>
+        </Div>
     );
 }
