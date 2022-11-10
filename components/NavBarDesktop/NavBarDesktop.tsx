@@ -10,7 +10,7 @@ export default function NavBarDesktop(){
     const Nav = styled('nav', {
         marginBottom:50,
         backgroundColor:'$primary',
-        borderBottom:'1px solid white',
+        borderBottom:'2px solid white',
         display:'flex',
         justifyContent:'center',
         alignItems:'end'

@@ -1,8 +1,9 @@
 import { useState } from "react";
+import Chat from "../components/Larp/Chat/Chat";
 import CreateUserModal from "../components/Larp/CreateUserModal/CreateUserModal";
 import LoggedIn from "../components/Larp/LoggedIn/LoggedIn";
 import LoginModal from "../components/Larp/LoginModal/LoginModal";
-import Messages from "../components/Larp/Messages/Messages";
+import SelectRoom from "../components/Larp/SelectRoom/SelectRoom";
 import { styled } from "../styles/stitches.config";
 
 
@@ -72,7 +73,9 @@ export default function Larp(){
                 <>
                     <LoggedIn userData={userData} logout={logout}></LoggedIn>
 
-                    <Messages userData={userData}></Messages>
+                    <SelectRoom userData={userData}></SelectRoom>
+
+                    <Chat></Chat>
                 </>
             }
         </>

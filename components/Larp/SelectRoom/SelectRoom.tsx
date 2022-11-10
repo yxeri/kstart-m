@@ -1,16 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { Messages } from "../../../atoms/Messages";
 import { Message } from "../../../models/Message";
 import { styled } from "../../../styles/stitches.config";
-import Chat from "./Chat/Chat";
-
-const Div = styled('div', {
-
-});
-
-const Select = styled('select', {
-
-});
 
 interface props{
     userData:{
@@ -30,11 +23,30 @@ interface roomFromAPI{
     objectId:string;
 }
 
+const Div = styled('div', {
+    width:'fit-content',
+    margin:'auto',
+    marginTop:10,
+    padding:20,
+    borderRadius:10,
+    backgroundColor:'$primary',
+    color:'$tertiary',
+    border:'2px solid $tertiary'
+})
 
-export default function Messages(props:props){
+const H2 = styled('h2', {
+    textAlign:'center'
+});
+
+const Select = styled('select', {
+
+});
+
+
+export default function SelectRoom(props:props){
 
     const [rooms, setRooms] = useState<room[]>([]);
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useRecoilState<Message[]>(Messages);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/larp/getRooms')
@@ -72,7 +84,7 @@ export default function Messages(props:props){
 
     return(
         <Div>
-            <h2>Select room</h2>
+            <H2>Select chatroom</H2>
             <Select onChange={handleChangeRoomSelect} defaultValue="DEFAULT">
                 <option value="DEFAULT" disabled hidden>Select room</option>
                 {rooms.map((room, i) => {
@@ -81,8 +93,6 @@ export default function Messages(props:props){
                     );
                 })}
             </Select>
-
-            <Chat messages={messages}></Chat>
         </Div>
     );
 }
