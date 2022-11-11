@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { Messages } from "../../../atoms/Messages";
+import { SelectedRoom } from "../../../atoms/SelectedRoom";
 import { Message } from "../../../models/Message";
 import { styled } from "../../../styles/stitches.config";
 
@@ -47,6 +48,8 @@ export default function SelectRoom(props:props){
 
     const [rooms, setRooms] = useState<room[]>([]);
     const [messages, setMessages] = useRecoilState<Message[]>(Messages);
+    const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);
+    const [selectedRoomIndex, setSelectedRoomIndex] = useState<number>(0);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/larp/getRooms')
@@ -60,11 +63,46 @@ export default function SelectRoom(props:props){
     }, []);
 
 
+    //update messages
+    useEffect(() => {
+
+        if(selectedRoomIndex !== 0){
+
+            let interval = setInterval(async () => {
+        
+                let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:props.userData.token, roomId:rooms[selectedRoomIndex].roomId});
+
+                if(res.data.data && res.data.data.messages){
+
+                    res.data.data.messages.forEach((message:Message) => {
+                        setMessages(prev => [...prev, {text:message.text, timeCreated:message.timeCreated, ownerId:message.ownerId}]);
+                    });
+                }
+                else{
+                    setMessages([]);
+                }
+            }, 1000);
+
+            
+            // clearInterval(interval);
+        }
+        
+    }, [selectedRoomIndex])
+
+
     async function handleChangeRoomSelect(e:React.ChangeEvent<HTMLSelectElement>){
 
         let index = rooms.findIndex(obj => {
+            
+
+            if(obj.roomName === e.target.value){
+                setSelectedRoom(obj.roomId);  
+            }
+
             return obj.roomName === e.target.value;
         });
+
+        setSelectedRoomIndex(index);
 
         let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:props.userData.token, roomId:rooms[index].roomId});
 
