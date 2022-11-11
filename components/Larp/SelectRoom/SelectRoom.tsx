@@ -68,7 +68,6 @@ export default function SelectRoom(props:props){
 
         let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:props.userData.token, roomId:rooms[index].roomId});
 
-        console.log(res);
         
         if(res.data.data && res.data.data.messages){
 
