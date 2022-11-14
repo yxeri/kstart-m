@@ -63,37 +63,26 @@ export default function SendMessageForm(){
         });
 
 
-        
 
+        let res = await axios.post('http://localhost:3000/api/larp/sendMessage', {
+            token: loggedInUser.token,
+            message: messageArray,
+            messageType: 'CHAT',
+            roomId: selectedRoom
+        });
 
+        setMessages(prev => [...prev, {
+            text: res.data.data.message.text,
+            timeCreated: res.data.data.message.timeCreated,
+            ownerId: res.data.data.message.ownerId
+        }]);
 
-        //TA BORT TIMEOUT SEN, BARA HÄR FÖR TESTNING
-        setTimeout(async () => {
-
-            let res = await axios.post('http://localhost:3000/api/larp/sendMessage', {
-                token: loggedInUser.token,
-                message: messageArray,
-                messageType: 'CHAT',
-                roomId: selectedRoom
-            });
-    
-            setTempMessage({
-                text: [],
-                timeCreated: '',
-                userId: '',
-                show: false
-            });
-    
-            setMessages(prev => [...prev, {
-                text: res.data.data.message.text,
-                timeCreated: res.data.data.message.timeCreated,
-                ownerId: res.data.data.message.ownerId
-            }]);
-
-        }, 1000)
-
-
-
+        setTempMessage({
+            text: [],
+            timeCreated: '',
+            userId: '',
+            show: false
+        });
 
         methods.reset();
     }

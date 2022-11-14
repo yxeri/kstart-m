@@ -61,9 +61,9 @@ export default function ChatMessages(props:props){
 
     const [messagesToShow, setMessagesToshow] = useState([]);
     const [messages, setMessages] = useRecoilState(Messages);
-    const [tempMessage, setTempMessage] = useRecoilState(TempMessage);
     const selectedRoom = useRecoilValue(SelectedRoom);
     const loggedInUser = useRecoilValue(LoggedInUser);
+    const tempMessages = useRecoilValue(TempMessage);
 
     const ref = useRef<null | HTMLDivElement>(null);
 
@@ -154,12 +154,10 @@ export default function ChatMessages(props:props){
     useEffect(() => {
 
         if(props.showChat){
-            setTimeout(() => {
-                ref.current?.scrollIntoView({behavior: 'smooth'});
-            }, 300);
+            ref.current?.scrollIntoView({behavior: 'smooth'});
         }
 
-    }, [props.showChat, messages]);
+    }, [props.showChat, messages, tempMessages]);
 
 
     return(

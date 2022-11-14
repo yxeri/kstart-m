@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { TempMessage } from "../../../../atoms/TempMessage";
 import { styled } from "../../../../styles/stitches.config";
