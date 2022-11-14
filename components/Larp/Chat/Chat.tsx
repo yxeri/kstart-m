@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { keyframes, styled } from "../../../styles/stitches.config";
-import ChatMessages from "./ChatMessages";
+import ChatMessages from "./ChatMessages/ChatMessages";
 import SendMessage from "./SendMessage/SendMessageForm";
 
 

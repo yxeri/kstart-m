@@ -19,8 +19,6 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
             roomId: req.body.roomId  
         }
     }
-
-    console.log(req.body);
     
 
     try {

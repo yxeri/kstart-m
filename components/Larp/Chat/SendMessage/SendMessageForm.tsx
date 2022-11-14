@@ -1,7 +1,10 @@
 import axios from "axios";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { LoggedInUser } from "../../../../atoms/LoggedInUser";
+import { Messages } from "../../../../atoms/Messages";
 import { SelectedRoom } from "../../../../atoms/SelectedRoom";
+import { TempMessage } from "../../../../atoms/TempMessage";
 import { styled } from "../../../../styles/stitches.config";
 import Textarea from "./Textarea";
 
@@ -32,6 +35,9 @@ const Button = styled('button', {
 export default function SendMessageForm(){
 
     const selectedRoom = useRecoilValue(SelectedRoom);
+    const loggedInUser = useRecoilValue(LoggedInUser);
+    const [messages, setMessages] = useRecoilState(Messages);
+    const [tempMessage, setTempMessage] = useRecoilState(TempMessage);
     const methods = useForm<Message>();
 
 
@@ -47,16 +53,29 @@ export default function SendMessageForm(){
             messageArray = [msg.text];
         }
 
+
+        setTempMessage({
+            text: messageArray,
+            timeCreated: new Date().toString(),
+            ownerId: loggedInUser.ownerId,
+            show: true
+        });
+
+
+
         let res = await axios.post('http://localhost:3000/api/larp/sendMessage', {
-            token: localStorage.getItem('user'),
+            token: loggedInUser,
             message: messageArray,
             messageType: 'CHAT',
             roomId: selectedRoom
         });
 
-        console.log(res);
+        setMessages(prev => [...prev, {
+            text: res.data.data.message.text,
+            timeCreated: res.data.data.message.timeCreated,
+            ownerId: res.data.data.message.ownerId
+        }]);
         
-
         methods.reset();
     }
 

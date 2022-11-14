@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState } from "react";
 import LoggedIn from "../LoggedIn/LoggedIn";
 import { styled } from "../../../styles/stitches.config";
+import { useRecoilState } from "recoil";
+import { LoggedInUser } from "../../../atoms/LoggedInUser";
 
 const Modal = styled('div', {
     position:'absolute',
@@ -69,6 +71,7 @@ export default function LoginModal(props:props){
 
     const methods = useForm<LarpUser>({mode: 'onTouched'});
     const [status, setStatus] = useState(0);
+    const [loggedInUser, setLoggedInUser] = useRecoilState(LoggedInUser);
 
 
     async function onSubmit(data:LarpUser){
@@ -83,8 +86,9 @@ export default function LoginModal(props:props){
         if(res.data.data && res.data.data.token){
             props.setUserData(res.data.data.token, res.data.data.user._id, res.data.data.user.username);
             props.setLoggedIn(true);
-            
-            localStorage.setItem('user', res.data.data.token);
+
+            setLoggedInUser({token:res.data.data.token, ownerId: res.data.data.ownerId});
+
             methods.reset();
         }
         else{

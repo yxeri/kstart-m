@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { SelectedRoom } from "../atoms/SelectedRoom";
 import Chat from "../components/Larp/Chat/Chat";
 import CreateUserModal from "../components/Larp/CreateUserModal/CreateUserModal";
 import LoggedIn from "../components/Larp/LoggedIn/LoggedIn";
@@ -38,12 +40,13 @@ export default function Larp(){
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [userData, setUserData] = useState({token:'', userId:'', username:''});
+    const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);
 
 
     function logout(){
         setLoggedIn(false);
         setShowLoginModal(false);
-        localStorage.removeItem('user');
+        setSelectedRoom('');
     }
 
 

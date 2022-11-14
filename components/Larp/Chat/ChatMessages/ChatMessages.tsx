@@ -1,15 +1,19 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { Messages } from "../../../atoms/Messages";
-import { keyframes, styled } from "../../../styles/stitches.config";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { LoggedInUser } from "../../../../atoms/LoggedInUser";
+import { Messages } from "../../../../atoms/Messages";
+import { SelectedRoom } from "../../../../atoms/SelectedRoom";
+import { TempMessage } from "../../../../atoms/TempMessage";
+import { Message } from "../../../../models/Message";
+import { keyframes, styled } from "../../../../styles/stitches.config";
+import TemporaryMessage from "./TemporaryMessage";
 
 
 interface props{
     showChat:boolean;
     userMap:Map<string, string>;
 }
-
-
 
 
 const ChatBox = styled('div', {
@@ -31,8 +35,7 @@ const ChatBox = styled('div', {
     },
 
     '&::-webkit-scrollbar-thumb':{
-        backgroundColor:'$tertiary',
-        height:50
+        backgroundColor:'$tertiary'
     },
 
     '&::-webkit-scrollbar-thumb:hover':{
@@ -57,18 +60,53 @@ const EmptyLine = styled('span', {
 export default function ChatMessages(props:props){
 
     const [messagesToShow, setMessagesToshow] = useState([]);
-    const messagesFromAtom = useRecoilValue(Messages);
+    const [messages, setMessages] = useRecoilState(Messages);
+    const [tempMessage, setTempMessage] = useRecoilState(TempMessage);
+    const selectedRoom = useRecoilValue(SelectedRoom);
+    const loggedInUser = useRecoilValue(LoggedInUser);
 
     const ref = useRef<null | HTMLDivElement>(null);
+
+    
+
+
+
+
+    async function getMessages(){
+
+        let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:loggedInUser, roomId:selectedRoom});
+
+    
+        if(res.data.data && res.data.data.messages){
+
+            res.data.data.messages.forEach((message:Message) => {
+                setMessages(prev => [...prev, {text:message.text, timeCreated:message.timeCreated, ownerId:message.ownerId}]);
+            });
+        }
+        else{
+            setMessages([]);
+        }
+    }
+
+
+
+    //Get messages when user selects a (new) room.
+    useEffect(() =>{
+
+        getMessages();
+    }, [selectedRoom]);
+
+
+
 
 
     useEffect(() => {
 
-        let mappedMessages:any = messagesFromAtom.map((message, i) => {
+        let mappedMessages:any = messages.map((message, i) => {
 
             let date = new Date(message.timeCreated);
     
-            var fullDate = date.toISOString().slice(0,10); //Format: "2014-05-12"
+            let fullDate = date.toISOString().slice(0,10); //Format: "2014-05-12"
             let time = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
     
             let multiLineMsg = message.text.map((msg, i) => {
@@ -104,13 +142,13 @@ export default function ChatMessages(props:props){
             
         });
     
-        if(messagesFromAtom.length < 1){
+        if(messages.length < 1){
     
             mappedMessages = <p>No messages in this room.</p>;
         }
 
         setMessagesToshow(mappedMessages);
-    }, [messagesFromAtom]);
+    }, [messages]);
 
 
     useEffect(() => {
@@ -121,12 +159,13 @@ export default function ChatMessages(props:props){
             }, 300);
         }
 
-    }, [props.showChat, messagesFromAtom]);
+    }, [props.showChat, messages]);
 
 
     return(
         <ChatBox>
             {messagesToShow}
+            <TemporaryMessage></TemporaryMessage>
             <div ref={ref}></div>
         </ChatBox>
     );
