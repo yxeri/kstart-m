@@ -1,18 +1,32 @@
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { TempMessage } from "../../../../atoms/TempMessage";
+import { styled } from "../../../../styles/stitches.config";
 
-export default function TemporaryMessage(){
 
-    const [tempMessage, setTempMessage] = useRecoilState(TempMessage);
+interface props{
+    userMap:Map<string, string>;
+}
 
-    useEffect(() => {
-        
-    }, [tempMessage]);
+
+const ChatMessage = styled('p', {
+    overflowWrap:'break-word',
+    color:'$secondary'
+});
+
+
+export default function TemporaryMessage(props:props){
+
+    const tempMessage = useRecoilValue(TempMessage);
 
     return(
         <>
-            asdf
+            {tempMessage.show &&
+                <ChatMessage>
+                    <b>{tempMessage.timeCreated} - {props.userMap.get(tempMessage.userId)}: </b>
+                    {tempMessage.text}
+                </ChatMessage>
+            }
         </>
     );
 }

@@ -6,7 +6,7 @@ export const TempMessage = atom<ITempMessage>({
     default:{
         text:[],
         timeCreated:'',
-        ownerId:'',
+        userId:'',
         show:false
     }
 });

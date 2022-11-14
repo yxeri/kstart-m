@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { LoggedInUser } from "../../../../atoms/LoggedInUser";
 import { Messages } from "../../../../atoms/Messages";
@@ -53,29 +53,48 @@ export default function SendMessageForm(){
             messageArray = [msg.text];
         }
 
+        let date = new Date();
 
         setTempMessage({
             text: messageArray,
-            timeCreated: new Date().toString(),
-            ownerId: loggedInUser.ownerId,
+            timeCreated: date.toLocaleDateString() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            userId: loggedInUser.userId,
             show: true
         });
 
 
-
-        let res = await axios.post('http://localhost:3000/api/larp/sendMessage', {
-            token: loggedInUser,
-            message: messageArray,
-            messageType: 'CHAT',
-            roomId: selectedRoom
-        });
-
-        setMessages(prev => [...prev, {
-            text: res.data.data.message.text,
-            timeCreated: res.data.data.message.timeCreated,
-            ownerId: res.data.data.message.ownerId
-        }]);
         
+
+
+
+        //TA BORT TIMEOUT SEN, BARA HÄR FÖR TESTNING
+        setTimeout(async () => {
+
+            let res = await axios.post('http://localhost:3000/api/larp/sendMessage', {
+                token: loggedInUser.token,
+                message: messageArray,
+                messageType: 'CHAT',
+                roomId: selectedRoom
+            });
+    
+            setTempMessage({
+                text: [],
+                timeCreated: '',
+                userId: '',
+                show: false
+            });
+    
+            setMessages(prev => [...prev, {
+                text: res.data.data.message.text,
+                timeCreated: res.data.data.message.timeCreated,
+                ownerId: res.data.data.message.ownerId
+            }]);
+
+        }, 1000)
+
+
+
+
         methods.reset();
     }
 

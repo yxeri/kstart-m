@@ -87,8 +87,11 @@ export default function LoginModal(props:props){
             props.setUserData(res.data.data.token, res.data.data.user._id, res.data.data.user.username);
             props.setLoggedIn(true);
 
-            setLoggedInUser({token:res.data.data.token, ownerId: res.data.data.ownerId});
-
+            setLoggedInUser({
+                token:res.data.data.token,
+                userId: res.data.data.user._id
+            });
+            
             methods.reset();
         }
         else{

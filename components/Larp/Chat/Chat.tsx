@@ -102,6 +102,7 @@ export default function Chat(){
     const [hideChat, setHideChat] = useState<boolean>(true);
     const [userMap, setUserMap] = useState<Map<string, string>>(new Map());
     
+
     useEffect(() => {
 
         setTimeout(() => {
@@ -118,6 +119,7 @@ export default function Chat(){
 
     }, []);
 
+    
     return(
         <Container>
             <OverflowHidden>

@@ -1,6 +1,6 @@
 export interface ITempMessage{
     text:string[];
     timeCreated:string;
-    ownerId:string;
+    userId:string;
     show:boolean;
 }

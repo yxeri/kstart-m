@@ -6,7 +6,7 @@ import { Messages } from "../../../../atoms/Messages";
 import { SelectedRoom } from "../../../../atoms/SelectedRoom";
 import { TempMessage } from "../../../../atoms/TempMessage";
 import { Message } from "../../../../models/Message";
-import { keyframes, styled } from "../../../../styles/stitches.config";
+import { styled } from "../../../../styles/stitches.config";
 import TemporaryMessage from "./TemporaryMessage";
 
 
@@ -74,7 +74,7 @@ export default function ChatMessages(props:props){
 
     async function getMessages(){
 
-        let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:loggedInUser, roomId:selectedRoom});
+        let res = await axios.post('http://localhost:3000/api/larp/getMessages', {token:loggedInUser.token, roomId:selectedRoom});
 
     
         if(res.data.data && res.data.data.messages){
@@ -165,7 +165,7 @@ export default function ChatMessages(props:props){
     return(
         <ChatBox>
             {messagesToShow}
-            <TemporaryMessage></TemporaryMessage>
+            <TemporaryMessage userMap={props.userMap}></TemporaryMessage>
             <div ref={ref}></div>
         </ChatBox>
     );
