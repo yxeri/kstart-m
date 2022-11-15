@@ -21,7 +21,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
         const err = error as AxiosError;
         
         if(err){
-            console.log('Axios Error:', err.response?.status);
+            console.log('Axios Error: ' + err.response?.status + ' ' + err.code);
             res.send(err.response?.status);
         }
     }

@@ -63,7 +63,6 @@ const Error = styled('p', {
 type props = {
     closeModal: () => void;
     setLoggedIn: (input:boolean) => void;
-    setUserData: (token:string, userId:string, username:string) => void;
 }
 
 
@@ -84,12 +83,12 @@ export default function LoginModal(props:props){
         
 
         if(res.data.data && res.data.data.token){
-            props.setUserData(res.data.data.token, res.data.data.user._id, res.data.data.user.username);
             props.setLoggedIn(true);
 
             setLoggedInUser({
                 token:res.data.data.token,
-                userId: res.data.data.user._id
+                userId: res.data.data.user._id,
+                username: res.data.data.user.username
             });
             
             methods.reset();
