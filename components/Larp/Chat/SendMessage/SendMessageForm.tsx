@@ -49,15 +49,22 @@ export default function SendMessageForm(){
             
             messageArray = msg.text.split(/\r?\n/);
         }
+        else if(msg.text === ''){
+
+            messageArray = [' ']
+        }
         else{
             messageArray = [msg.text];
         }
 
         let date = new Date();
 
+        let fullDate = date.toISOString().slice(0,10); //Format: "2014-05-12"
+        let time = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+
         setTempMessage({
             text: messageArray,
-            timeCreated: date.toLocaleDateString() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            timeCreated: fullDate + ' ' + time,
             userId: loggedInUser.userId,
             show: true
         });
@@ -71,18 +78,18 @@ export default function SendMessageForm(){
             roomId: selectedRoom
         });
 
-        setMessages(prev => [...prev, {
-            text: res.data.data.message.text,
-            timeCreated: res.data.data.message.timeCreated,
-            ownerId: res.data.data.message.ownerId
-        }]);
-
         setTempMessage({
             text: [],
             timeCreated: '',
             userId: '',
             show: false
         });
+
+        setMessages(prev => [...prev, {
+            text: res.data.data.message.text,
+            timeCreated: res.data.data.message.timeCreated,
+            ownerId: res.data.data.message.ownerId
+        }]); 
 
         methods.reset();
     }

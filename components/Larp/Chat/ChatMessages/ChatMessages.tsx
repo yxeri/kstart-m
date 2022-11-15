@@ -151,13 +151,28 @@ export default function ChatMessages(props:props){
     }, [messages]);
 
 
+
+    //300 ms delay on props.showChat and messages
+    useEffect(() => {
+
+        setTimeout(() => {
+            
+            if(props.showChat){
+                ref.current?.scrollIntoView({behavior: 'smooth'});
+            }
+        }, 300);
+
+    }, [props.showChat, messages]);
+
+
+    //50ms delay on tempMessages
     useEffect(() => {
 
         if(props.showChat){
-            ref.current?.scrollIntoView({behavior: 'smooth'});
+            ref.current?.scrollIntoView();
         }
-
-    }, [props.showChat, messages, tempMessages]);
+        
+    }, [tempMessages]);
 
 
     return(
