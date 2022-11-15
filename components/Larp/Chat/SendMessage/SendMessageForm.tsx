@@ -78,18 +78,26 @@ export default function SendMessageForm(){
             roomId: selectedRoom
         });
 
-        setTempMessage({
-            text: [],
-            timeCreated: '',
-            userId: '',
-            show: false
-        });
-
         setMessages(prev => [...prev, {
             text: res.data.data.message.text,
             timeCreated: res.data.data.message.timeCreated,
             ownerId: res.data.data.message.ownerId
-        }]); 
+        }]);
+
+
+        
+        //timeout prevents "flickering" when tempMessage is replaced by a normal message
+        setTimeout(() => {
+
+            setTempMessage({
+                text: [],
+                timeCreated: '',
+                userId: '',
+                show: false
+            });
+        }, 100);
+
+        
 
         methods.reset();
     }
