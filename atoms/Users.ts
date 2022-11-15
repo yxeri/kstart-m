@@ -4,4 +4,4 @@ import { User } from "../models/User";
 export const Users = atom<User[]>({
     key:'Users',
     default:[]
-})
+});

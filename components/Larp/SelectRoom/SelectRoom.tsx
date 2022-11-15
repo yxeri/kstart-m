@@ -4,13 +4,6 @@ import { useRecoilState } from "recoil";
 import { SelectedRoom } from "../../../atoms/SelectedRoom";
 import { styled } from "../../../styles/stitches.config";
 
-interface props{
-    userData:{
-        token:string;
-        userId:string;
-        username:string;
-    }
-}
 
 interface room{
     roomName:string;
@@ -42,7 +35,7 @@ const Select = styled('select', {
 });
 
 
-export default function SelectRoom(props:props){
+export default function SelectRoom(){
 
     const [rooms, setRooms] = useState<room[]>([]);
     const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);

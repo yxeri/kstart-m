@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { LoggedInUser } from "../../../atoms/LoggedInUser";
 import { styled } from "../../../styles/stitches.config";
 
 const Div = styled('div', {
@@ -25,11 +27,6 @@ const Button = styled('button', {
 
 
 type props = {
-    userData:{
-        token:string;
-        userId:string;
-        username:string;
-    };
 
     logout: () => void;
 }
@@ -37,16 +34,20 @@ type props = {
 
 export default function LoggedIn(props:props){
 
+    const loggedInUser = useRecoilValue(LoggedInUser);
+
     function deleteUser(){
+        console.log(loggedInUser);
+        
         axios.post('http://localhost:3000/api/larp/deleteUser', {
-            token: props.userData.token,
-            userId: props.userData.userId
+            token: loggedInUser.token,
+            userId: loggedInUser.userId
         });
     }
 
     return(
         <Div>
-            <P>Welcome {props.userData.username}!</P>
+            <P>Welcome! {loggedInUser.username}!</P>
 
             <Button onClick={deleteUser}>Delete user</Button>
             <Button onClick={props.logout}>Logout</Button>

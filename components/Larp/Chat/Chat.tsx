@@ -119,7 +119,7 @@ export default function Chat(){
 
     }, []);
 
-    
+
     return(
         <Container>
             <OverflowHidden>
