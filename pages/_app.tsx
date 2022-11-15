@@ -6,6 +6,7 @@ import NavBarPhone from '../components/NavBarPhone/NavBarPhone';
 import { useEffect, useState } from 'react';
 import NavBarDesktop from '../components/NavBarDesktop/NavBarDesktop';
 
+
 function MyApp({ Component, pageProps }: AppProps) {
 
     const [version, setVersion] = useState('desktop');
@@ -26,9 +27,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     },[]);
 
 
-
     return (
-        <RecoilRoot> 
+        <RecoilRoot>
             <DarkModeBackground></DarkModeBackground>
             {version === 'phone' && <NavBarPhone></NavBarPhone>}
             {version === 'desktop' && <NavBarDesktop></NavBarDesktop>}

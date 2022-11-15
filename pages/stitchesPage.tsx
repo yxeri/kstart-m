@@ -1,9 +1,8 @@
-import { styled } from '@stitches/react';
 import ResponsiveDiv from '../components/ResponsiveDiv/ResponsiveDiv';
 import ResponsiveDivStitches from '../components/ResponsiveDivStitches/ResponsiveDivStitches';
 import { useRecoilState } from 'recoil';
 import { DarkMode } from '../atoms/DarkMode';
-import colors from '../variables/colors';
+import { styled } from '../styles/stitches.config';
 
 function StitchesPage(){
 
@@ -25,12 +24,12 @@ function StitchesPage(){
             darkMode:{
                 dark:{
                     backgroundColor:'white',
-                    color:colors.tertiary
+                    color:'$tertiary'
                 },
 
                 light:{
-                    backgroundColor:colors.primary,
-                    color:colors.tertiary
+                    backgroundColor:'$primary',
+                    color:'$tertiary'
                 }
             }
         }

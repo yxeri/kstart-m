@@ -1,6 +1,5 @@
-import { styled, keyframes } from '@stitches/react';
 import * as Accordion from '@radix-ui/react-accordion';
-import colors from '../variables/colors';
+import { keyframes, styled } from '../styles/stitches.config';
 
 function RadixWithStitchesPage(){
 
@@ -31,8 +30,9 @@ function RadixWithStitchesPage(){
     const AccordionContent = styled(Accordion.Content, {
         width:200,
         height:35,
-        backgroundColor:colors.primary,
-        color:colors.tertiary,
+        backgroundColor:'$primary',
+        color:'$tertiary',
+        overflow:'hidden',
         
         '&[data-state="open"]': {animation: `${open} 300ms ease-out`},
         '&[data-state="closed"]': {animation: `${close} 300ms ease-out`},
@@ -60,10 +60,10 @@ function RadixWithStitchesPage(){
         padding:10,
         textAlign:'left',
         border:'none',
-        backgroundColor:colors.primary,
-        color:colors.tertiary,
+        backgroundColor:'$primary',
+        color:'$tertiary',
         cursor:'pointer',
-        '&:hover':{backgroundColor:colors.secondary},
+        '&:hover':{backgroundColor:'$secondary'},
 
         variants:{
 

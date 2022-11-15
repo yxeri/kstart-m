@@ -1,8 +1,7 @@
 import * as Accordion from '@radix-ui/react-accordion';
-import { styled, keyframes } from '@stitches/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import colors from '../../variables/colors';
+import { keyframes, styled } from '../../styles/stitches.config';
 
 export default function NavBarPhone(){
 
@@ -31,6 +30,11 @@ export default function NavBarPhone(){
         to:{borderRadius:'10px 10px 00px 00px'}
     });
 
+    const Div = styled('div', {
+        marginTop:10,
+        marginLeft:10
+    });
+
     const AccordionRoot = styled(Accordion.Root, {
         marginBottom:50
     });
@@ -45,10 +49,10 @@ export default function NavBarPhone(){
 
         border:'none',
         cursor:'pointer',
-        backgroundColor:colors.primary,
-        color:colors.tertiary,
+        backgroundColor:'$primary',
+        color:'$tertiary',
 
-        '&:hover':{backgroundColor:colors.secondary},
+        '&:hover':{backgroundColor:'$secondary'},
 
         '&[data-state="open"]':{animation:`${removeBorderRadius} 100ms forwards`},
         '&[data-state="closed"]':{animation:`${addBorderRadius} 800ms forwards`}
@@ -59,7 +63,7 @@ export default function NavBarPhone(){
         position:'absolute',
 
         boxSizing:'border-box',
-        backgroundColor:colors.primary,
+        backgroundColor:'$primary',
         borderRadius:'0px 0px 10px 10px',
         overflow:'hidden',
 
@@ -78,7 +82,7 @@ export default function NavBarPhone(){
     });
 
     const Li = styled('li', {
-        '&:hover':{backgroundColor:colors.secondary},
+        '&:hover':{backgroundColor:'$secondary'},
 
         variants:{
 
@@ -95,7 +99,7 @@ export default function NavBarPhone(){
         display:'block',
         padding:10,
         textDecoration:'none',
-        color:colors.tertiary
+        color:'$tertiary'
     });
 
     const Span = styled('span', {
@@ -103,7 +107,7 @@ export default function NavBarPhone(){
     });
 
     return(
-        <>
+        <Div>
             <AccordionRoot type="single" collapsible>
 
                 <Accordion.Item value="navBar">
@@ -150,6 +154,6 @@ export default function NavBarPhone(){
                 </Accordion.Item>
 
             </AccordionRoot>
-        </>
+        </Div>
     );
 }
