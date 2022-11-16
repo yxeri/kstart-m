@@ -7,13 +7,15 @@ import { User } from "../models/User";
 import styles from "../styles/Recoil.module.scss";
 
 function Recoil(){
-
     const [users, setUsers] = useState<User[]>([]);
 
     function addUser(user:User){
         setUsers([...users, user]);
     }
 
+    /*
+     * TODO Section could be extracted to a separate component
+     */
     return(
         <div className={styles.wrapper}>
             <section>

@@ -11,6 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     const [version, setVersion] = useState('desktop');
 
+    /*
+     * TODO What happens if the user changes the window size?
+     * See https://github.com/iiroj/use-breakpoint for a ready-to-use hook to handle breakpoints
+     */
     function getWindowDimensions() {
         const { innerWidth: width, innerHeight: height } = window;
 

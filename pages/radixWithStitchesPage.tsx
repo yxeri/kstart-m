@@ -84,7 +84,10 @@ function RadixWithStitchesPage(){
 
 
 
-
+    /*
+     * TODO Extract into separate components and reuse them instead of duplicating code. What differs between the
+     *  Accordion.Items seems to be only value, trigger content and content
+     */
     return(
         <Accordion.Root type="single" collapsible>
 

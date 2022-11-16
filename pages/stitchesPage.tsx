@@ -8,7 +8,10 @@ function StitchesPage(){
 
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
 
-
+    /*
+     * TODO Move Div and Button outside of StitchesPages. Their declaration has no dependency to StitchesPage
+     * and could be reused in the future
+     */
     const Div = styled('div', {
         color:'red'
     });
@@ -35,14 +38,19 @@ function StitchesPage(){
         }
     });
 
-
-
+    /*
+     * TODO This could be extracted into a separate component (e.g. ThemeButton). Setting darkmode will trigger
+     * a re-render of the StichesPage component. You can avoid that by moving it into a separate component.
+     */
     function toggleDarkMode(){
 
         setDarkMode(!darkMode);
     }
 
 
+    /*
+     * TODO Stitches allow variants that are booleans (so true false instead of dark and light inside darkMode
+     */
     return(
         <div>
             <Button onClick={toggleDarkMode} darkMode={darkMode ? 'dark' : 'light'}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button>
