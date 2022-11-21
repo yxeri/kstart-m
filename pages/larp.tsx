@@ -36,14 +36,19 @@ const Background = styled('div', {
 });
 
 export default function Larp(){
-
+    /*
+     * TODO Modal could be extracted into a separate component instead of having duplicate states here
+     */
     const [showCreateUserModal, setShowCreateUserModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);
     const [loggedInUser, setLoggedInUser] = useRecoilState(LoggedInUser);
 
-
+    /*
+     * TODO Extract into separate file. You can have an atom that stores user information and have other components
+     * listen to changes to it
+     */
     function logout(){
         setLoggedIn(false);
         setShowLoginModal(false);

@@ -5,9 +5,9 @@ import RHFList from "../components/RHFList/RHFList";
 import RHFRecoil from "../components/RHFRecoil/RHFRecoil";
 import { User } from "../models/User";
 import styles from "../styles/Recoil.module.scss";
+import Section from "../components/Section/Section";
 
 function Recoil(){
-
     const [users, setUsers] = useState<User[]>([]);
 
     function addUser(user:User){
@@ -16,17 +16,16 @@ function Recoil(){
 
     return(
         <div className={styles.wrapper}>
-            <section>
-                <h1>Reach Hook Form</h1>
+
+            <Section h1="Reach Hook Form">
                 <RHF addUser={addUser}></RHF>
                 <RHFList users={users}></RHFList>
-            </section>
+            </Section>
 
-            <section>
-                <h1>RHF Recoil</h1>
+            <Section h1="RHF Recoil">
                 <RHFRecoil></RHFRecoil>
                 <RHFRecoilList></RHFRecoilList>
-            </section>
+            </Section>
         </div>
     );
 }

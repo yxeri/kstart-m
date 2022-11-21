@@ -1,52 +1,23 @@
 import ResponsiveDiv from '../components/ResponsiveDiv/ResponsiveDiv';
 import ResponsiveDivStitches from '../components/ResponsiveDivStitches/ResponsiveDivStitches';
+import StyledDiv from '../components/Styled/StyledDiv';
+import StyledButton from '../components/Styled/StyledButton';
 import { useRecoilState } from 'recoil';
 import { DarkMode } from '../atoms/DarkMode';
-import { styled } from '../styles/stitches.config';
 
 function StitchesPage(){
 
     const [darkMode, setDarkMode] = useRecoilState(DarkMode);
-
-
-    const Div = styled('div', {
-        color:'red'
-    });
-
-
-    const Button = styled('button',{
-
-        padding:'10px',
-        border:'2px solid black',
-        borderRadius:'10px',
-        
-        variants:{
-            darkMode:{
-                dark:{
-                    backgroundColor:'white',
-                    color:'$tertiary'
-                },
-
-                light:{
-                    backgroundColor:'$primary',
-                    color:'$tertiary'
-                }
-            }
-        }
-    });
-
-
 
     function toggleDarkMode(){
 
         setDarkMode(!darkMode);
     }
 
-
     return(
         <div>
-            <Button onClick={toggleDarkMode} darkMode={darkMode ? 'dark' : 'light'}>{darkMode ? 'Light Mode' : 'Dark Mode'}</Button>
-            <Div>It works!</Div>
+            <StyledButton variant={darkMode} onClick={toggleDarkMode} text={darkMode ? 'Light Mode' : 'Dark Mode'}></StyledButton>
+            <StyledDiv>It works!</StyledDiv>
             <ResponsiveDiv></ResponsiveDiv>
             <ResponsiveDivStitches></ResponsiveDivStitches>
         </div>

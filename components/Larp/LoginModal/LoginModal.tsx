@@ -67,7 +67,6 @@ type props = {
 
 
 export default function LoginModal(props:props){
-
     const methods = useForm<LarpUser>({mode: 'onTouched'});
     const [status, setStatus] = useState(0);
     const [loggedInUser, setLoggedInUser] = useRecoilState(LoggedInUser);
