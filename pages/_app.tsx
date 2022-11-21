@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import DarkModeBackground from '../components/DarkModeBackground/DarkModeBackground';
 import NavBar from '../components/NavBar/NavBar';
 
