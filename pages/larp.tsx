@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { LoggedInUser } from "../atoms/LoggedInUser";
-import { SelectedRoom } from "../atoms/SelectedRoom";
+import { ShowCreateUserModal } from "../atoms/ShowCreateUserModal";
+import { ShowLoginModal } from "../atoms/ShowLoginModal";
 import Chat from "../components/Larp/Chat/Chat";
-import CreateUserModal from "../components/Larp/CreateUserModal/CreateUserModal";
 import LoggedIn from "../components/Larp/LoggedIn/LoggedIn";
-import LoginModal from "../components/Larp/LoginModal/LoginModal";
+import Modal from "../components/Larp/Modal/Modal";
 import SelectRoom from "../components/Larp/SelectRoom/SelectRoom";
 import { styled } from "../styles/stitches.config";
 
@@ -26,67 +26,28 @@ const Button = styled('button', {
     '&:hover':{backgroundColor:'$secondary'},
 });
 
-const Background = styled('div', {
-    position:'absolute',
-    top:0,
-    bottom:0,
-    left:0,
-    right:0,
-    backgroundColor:'rgba(0, 0, 0, 0.25)'
-});
+
 
 export default function Larp(){
-    /*
-     * TODO Modal could be extracted into a separate component instead of having duplicate states here
-     */
-    const [showCreateUserModal, setShowCreateUserModal] = useState(false);
-    const [showLoginModal, setShowLoginModal] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);
-    const [loggedInUser, setLoggedInUser] = useRecoilState(LoggedInUser);
 
-    /*
-     * TODO Extract into separate file. You can have an atom that stores user information and have other components
-     * listen to changes to it
-     */
-    function logout(){
-        setLoggedIn(false);
-        setShowLoginModal(false);
-        setSelectedRoom('');
-        
-        setLoggedInUser({
-            token:'',
-            userId:'',
-            username:''
-        });
-    }
-
+    const [showCreateUserModal, setShowCreateUserModal] = useRecoilState(ShowCreateUserModal);
+    const [showLoginModal, setShowLoginModal] = useRecoilState(ShowLoginModal);
+    const loggedInUser = useRecoilValue(LoggedInUser);
 
     return(
         <>
-            {!loggedIn &&
+            {!loggedInUser.token &&
                 <Div>
                     <Button onClick={() => {setShowCreateUserModal(true)}}>Create User</Button>
                     <Button onClick={() => {setShowLoginModal(true)}}>Login</Button>
                 </Div>     
             }
             
+            <Modal></Modal>
 
-            {showCreateUserModal &&
-                <Background>  
-                    <CreateUserModal closeModal={() => {setShowCreateUserModal(false)}}></CreateUserModal>
-                </Background>
-            }
-
-            {showLoginModal && !loggedIn &&
-                <Background>
-                    <LoginModal closeModal={() => {setShowLoginModal(false)}} setLoggedIn={(input) => {setLoggedIn(input)}}></LoginModal>
-                </Background>
-            }
-
-            {loggedIn &&
+            {loggedInUser.token &&
                 <>
-                    <LoggedIn logout={logout}></LoggedIn>
+                    <LoggedIn></LoggedIn>
                     <SelectRoom></SelectRoom>
                     <Chat></Chat>
                 </>

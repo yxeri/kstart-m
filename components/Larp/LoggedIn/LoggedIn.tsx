@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { LoggedInUser } from "../../../atoms/LoggedInUser";
+import { SelectedRoom } from "../../../atoms/SelectedRoom";
 import { styled } from "../../../styles/stitches.config";
 
 const Div = styled('div', {
@@ -26,15 +27,20 @@ const Button = styled('button', {
 });
 
 
-type props = {
+export default function LoggedIn(){
 
-    logout: () => void;
-}
+    const [selectedRoom, setSelectedRoom] = useRecoilState(SelectedRoom);
+    const [loggedInUser, setLoggedInUser] = useRecoilState(LoggedInUser);
 
-
-export default function LoggedIn(props:props){
-
-    const loggedInUser = useRecoilValue(LoggedInUser);
+    function logout(){
+        setSelectedRoom('');
+    
+        setLoggedInUser({
+            token:'',
+            userId:'',
+            username:''
+        });
+    }
 
     function deleteUser(){
         console.log(loggedInUser);
@@ -50,7 +56,7 @@ export default function LoggedIn(props:props){
             <P>Welcome! {loggedInUser.username}!</P>
 
             <Button onClick={deleteUser}>Delete user</Button>
-            <Button onClick={props.logout}>Logout</Button>
+            <Button onClick={logout}>Logout</Button>
         </Div>
     );
 }
